@@ -29,8 +29,8 @@ def sparse_power_method(A, max_iter=100, tol=1e-6):
 
     for _ in range(max_iter):
 
-        # Split the eigenvector of 'X' into the 
-        # left/right singular vectors of A'
+        # Split the estimate leading eigenvector of 'X'
+        # into the left/right singular vectors of A'
         u, v = np.split(x, [n])
 
         # Update 'u' and v'
