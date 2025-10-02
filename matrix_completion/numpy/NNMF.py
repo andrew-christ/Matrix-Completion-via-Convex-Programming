@@ -37,7 +37,7 @@ class NNMF(MatrixCompletion):
             G = (F - Y) * mask
 
             # Compute the rank-1 update using the negative gradient
-            x = sparse_power_method(-G)
+            x = sparse_power_method(-G, max_iter=2*k)
 
             # Perform the Frank-Wolfe rank-1 update
             self.X = (1 - g_k) * self.X + g_k * (self.tau * x @ x.T)
