@@ -6,7 +6,7 @@ While many heuristic method for matrix completion exist in the literature, they 
 
 To address these challenges, prior work has focused on recovering matrices by seeking low-rank or low-norm factorizations that minimize the least-squares error over the observed entries. Directly minimizing the rank of a matrix is non-convex, but can be efficiently approximated using its convex surrogate, the nuclear norm (i.e., the sum of the singular values) [[1](#ref1)].
 
-Matrix completion has numerous applications, including recommendation systems, collaborative filtering, compressed sesning, and phase retrieval. Many of these applications involve large-scale data, requiring algorithms tha are both accurate and scalable. This repsoitory emphasizes Frank-Wolfe-based algorithms [[2](#ref2)], which offer nearly linear runtime performance comparable to SVD-based methods, making them suitable for large-scale matrix completion tasks.
+Matrix completion has numerous applications, including recommendation systems [[2](#ref2)], collaborative filtering [[3](#ref3)], compressed sensing [[4](#ref4)], and phase retrieval [[5](#ref5)]. Many of these applications involve large-scale data, requiring algorithms tha are both accurate and scalable. This repsoitory emphasizes Frank-Wolfe-based algorithms [[6](#ref6)], which offer nearly linear runtime performance comparable to SVD-based methods, making them suitable for large-scale matrix completion tasks.
 
 ## Examples
 
@@ -18,4 +18,12 @@ Matrix completion has numerous applications, including recommendation systems, c
 
 <a id="ref1"></a>[1] Fazel, Maryam. *Matrix rank minimization with applications*. Diss. PhD thesis, Stanford University, 2002.
 
-<a id="ref2"></a>[2] Jaggi, Martin. "Revisiting Frank-Wolfe: Projection-free sparse convex optimization." *International conference on machine learning*. PMLR, 2013.
+<a id="ref2"></a>[2] Kang, Zhao, Chong Peng, and Qiang Cheng. "Top-n recommender system via matrix completion." *Proceedings of the AAAI conference on artificial intelligence*. Vol. 30. No. 1. 2016.
+
+<a id="ref3"></a>[3] Srebro, Nathan, Jason Rennie, and Tommi Jaakkola. "Maximum-margin matrix factorization." *Advances in neural information processing systems* 17 (2004).
+
+<a id="ref4"></a>[4] Recht, Benjamin, Maryam Fazel, and Pablo A. Parrilo. "Guaranteed minimum-rank solutions of linear matrix equations via nuclear norm minimization." *SIAM review* 52.3 (2010): 471-501.
+
+<a id="ref5"></a>[5] Candes, Emmanuel J., et al. "Phase retrieval via matrix completion." SIAM review 57.2 (2015): 225-251.
+
+<a id="ref6"></a>[6] Jaggi, Martin. "Revisiting Frank-Wolfe: Projection-free sparse convex optimization." *International conference on machine learning*. PMLR, 2013.
