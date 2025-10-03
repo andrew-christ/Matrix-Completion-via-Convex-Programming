@@ -6,9 +6,14 @@ While many heuristic method for matrix completion exist in the literature, they 
 
 To address these challenges, prior work has focused on recovering matrices by seeking low-rank or low-norm factorizations that minimize the least-squares error over the observed entries. Directly minimizing the rank of a matrix is non-convex, but can be efficiently approximated using its convex surrogate, the nuclear norm (i.e., the sum of the singular values).
 
-Matrix completion has numerous applications, including recommendation systems, collaborative filtering, compressed sesning, and phase retrieval. Many of these applications involve large-scale data, requiring algorithms tha are both accurate and scalable. This repsoitory emphasizes Frank-Wolfe-based algorithms, which offer nearly linear runtime performance comparable to SVD-based methods, making them suitable for large-scale matrix completion tasks.
+Matrix completion has numerous applications, including recommendation systems, collaborative filtering, compressed sesning, and phase retrieval. Many of these applications involve large-scale data, requiring algorithms tha are both accurate and scalable. This repsoitory emphasizes Frank-Wolfe-based algorithms [[1](#ref1)], which offer nearly linear runtime performance comparable to SVD-based methods, making them suitable for large-scale matrix completion tasks.
 
 ## Examples
 
 ```bash
 ./run.sh experiments.run_NNMF --max_iter=500
+```
+
+## References
+
+<a id="ref1"></a>[1] Jaggi, Martin. "Revisiting Frank-Wolfe: Projection-free sparse convex optimization." *International conference on machine learning*. PMLR, 2013.
