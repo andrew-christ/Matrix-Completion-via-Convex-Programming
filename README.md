@@ -23,7 +23,7 @@ $$
 
 where $ \mathcal{P}_\Omega $ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm.
 
-➡️ [**View Python implementation**](../matrix_completion/numpy/NNMF.py)
+➡️ **View [Numpy](matrix_completion/numpy/NNMF.py)  implementation**
 
 ## Examples
 
