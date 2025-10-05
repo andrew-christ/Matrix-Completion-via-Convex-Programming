@@ -10,20 +10,45 @@ Matrix completion has numerous applications, including recommendation systems [[
 
 ## Algorithms
 
-### Nuclear Norm Matrix Completion
+### Nuclear Norm Matrix Factorization
 
 This algorithm solves the convex relaxation of rank minimization by replacing the matrix rank with its nuclear norm (sum of singular values):
 
 $$
 \begin{aligned}
-\underset{\mathbf{X}}{\text{minimize}}  \quad & || P_\Omega(X - Y) ||_F^2 \\
-\text{subject to} \quad & || X ||_* \leq \tau
+\underset{\mathbf{X}}{\text{minimize}}  \quad & \| P_\Omega(X - Y) \|_F^2 \\
+\text{subject to} \quad & \| X \|_* \leq \tau
 \end{aligned}
 $$
 
-where $P_\Omega$ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm.
+where $P_\Omega$ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm. Additionally, the equation above can be represented as a semidefinite program (SDP):
+
+$$
+\begin{aligned}
+    \underset{\mathbf{A}, \mathbf{B}, \mathbf{X}}{\text{minimize}}  \quad & \| P_\Omega(X - Y) \|_F^2 \\
+    \text{subject to} \quad & \text{tr}(\mathbf{A}) + \text{tr}(\mathbf{B}) \leq 2\tau \\
+    & \begin{bmatrix}
+    \mathbf{A} & \mathbf{X} \\
+    \mathbf{X}^T & \mathbf{B}
+    \end{bmatrix} \succeq 0
+\end{aligned}
+$$
 
 ➡️ **View [Numpy](matrix_completion/numpy/NNMF.py)  implementation**
+
+### Maximum Margin Matrix Factorization
+
+$$
+\begin{aligned}
+    \underset{\mathbf{A}, \mathbf{B}, \mathbf{X}}{\text{minimize}}  \quad & \| P_\Omega(X - Y) \|_F^2 \\
+    \text{subject to} \quad 
+    & \begin{bmatrix}
+    \mathbf{A} & \mathbf{X} \\
+    \mathbf{X}^T & \mathbf{B}
+    \end{bmatrix} \succeq 0 \\
+    & \mathbf{A}_{ii}, \mathbf{B}_{jj} \leq \tau \quad \forall i, j \\
+\end{aligned}
+$$
 
 ## Examples
 
