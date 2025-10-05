@@ -8,6 +8,23 @@ To address these challenges, prior work has focused on recovering matrices by se
 
 Matrix completion has numerous applications, including recommendation systems [[2](#ref2)], collaborative filtering [[3](#ref3)], compressed sensing [[4](#ref4)], and phase retrieval [[5](#ref5)]. Many of these applications involve large-scale data, requiring algorithms that are both accurate and scalable. This repository emphasizes Frank-Wolfe-based algorithms [[6](#ref6)], which offer nearly linear runtime performance comparable to SVD-based methods, making them suitable for large-scale matrix completion tasks.
 
+## Algorithms
+
+### Nuclear Norm Matrix Completion
+
+This algorithm solves the convex relaxation of rank minimization by replacing the matrix rank with its nuclear norm (sum of singular values):
+
+$$
+\begin{aligned}
+\underset{\mathbf{X}}{\text{minimize}}  \quad & \| \mathcal{P}_\Omega(X - Y) \|_F^2 \\
+\text{subject to} \quad & \| X \|_* \leq \tau
+\end{aligned}
+$$
+
+where $ \mathcal{P}_\Omega $ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm.
+
+➡️ [**View Python implementation**](../matrix_completion/numpy/NNMF.py)
+
 ## Examples
 
 ```bash
