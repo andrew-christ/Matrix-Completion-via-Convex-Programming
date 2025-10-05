@@ -16,12 +16,12 @@ This algorithm solves the convex relaxation of rank minimization by replacing th
 
 $$
 \begin{aligned}
-\underset{\mathbf{X}}{\text{minimize}}  \quad & \| \mathcal{P}_\Omega(X - Y) \|_F^2 \\
-\text{subject to} \quad & \| X \|_* \leq \tau
+\underset{\mathbf{X}}{\text{minimize}}  \quad & || P_\Omega(X - Y) ||_F^2 \\
+\text{subject to} \quad & || X ||_* \leq \tau
 \end{aligned}
 $$
 
-where $ \mathcal{P}_\Omega $ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm.
+where $P_\Omega$ is the projection onto the set of observed entries. This formulation promotes a low-rank structure in $\mathbf{X}$ and is robust to additive noise in the observed entries. The low-rank factorization is computed efficiently using a *Frank-Wolfe* algorithm.
 
 ➡️ **View [Numpy](matrix_completion/numpy/NNMF.py)  implementation**
 
