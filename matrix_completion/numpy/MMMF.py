@@ -33,7 +33,7 @@ class MMMF(MatrixCompletion):
 
         self.loss = []
 
-        for k in tqdm(range(1, self.max_iter), desc='Running Maximum Margin Matrix Completion'):
+        for k in tqdm(range(self.max_iter), desc='Running Maximum Margin Matrix Completion'):
 
             # Initialize the Frank-Wolfe step size
             g_k     = 2 / (2 + k)
@@ -50,8 +50,8 @@ class MMMF(MatrixCompletion):
             # Perform the Frank-Wolfe max-diagonal update
             X0      = x @ x.T / np.max(x**2)
             X       = self.X / np.max(np.diag(self.X))
-            self.X  = (1 - g_k) * X + g_k * (X0)
-            self.X  *= (self.tau / np.max(np.diag(X)))
+            self.X  = (1 - g_k) * X + g_k * X0
+            self.X  *= self.tau
 
             # Save loss 
             F = self.X[:n, -m:]
