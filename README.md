@@ -2,7 +2,7 @@
 
 This repository provides implementations of various matrix completion algorithms based on convex optimization. Convex optimization is particularly useful in this context because it offers theoretical guarantees for the optimality of a solution. The algorithms here are designed to recover missing entries in partially observed and possibly corrupted matrices.
 
-While many heuristic method for matrix completion exist in the literature, they often lack rigorous guarantees for accurately recovering unseen entries. Moreover, these methods are frequently non-convex, meaning converegnce to a global solution is not assured.
+While many heuristic methods for matrix completion exist in the literature, they often lack rigorous guarantees for accurately recovering unseen entries. Moreover, these methods are frequently non-convex, meaning converegnce to a global solution is not assured.
 
 To address these challenges, prior work has focused on recovering matrices by seeking low-rank or low-norm factorizations that minimize the least-squares error over the observed entries. Directly minimizing the rank of a matrix is non-convex, but can be efficiently approximated using its convex surrogate, the nuclear norm (i.e., the sum of the singular values) [[1](#ref1)].
 
@@ -38,6 +38,26 @@ $$
 
 ### Maximum Margin Matrix Factorization
 
+While the nuclear norm has been shown to be a useful relaxation for minimizing the rank of a matrix, other approaches to collaborative filtering have suggested using finding low-norm factorizations inside of low-rank factorizations [[3](#ref3)]. As was first shown in [[1](#ref1)], for a matrix $\mathbf{X} = \mathbf{U}\mathbf{V}^T$, the nuclear norm has the following relationship:
+
+$$
+\begin{aligned}
+    \|\mathbf{X}\|_* &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} \|\mathbf{U}\|_F \|\mathbf{V}\|_F \\
+    &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} \frac{1}{2} \Big( \|\mathbf{U}\|_F^2 + \|\mathbf{V}\|_F^2 \Big)
+\end{aligned}
+$$
+
+where the second equality is due to the AM-GM inequality. Therefore, the nuclear norm constrains all the elements in $\mathbf{U}$ and $\mathbf{V}$ on average to have low $L_2$ norm. Instead of penalizing the average of the rows in $\mathbf{U}$ and $\mathbf{V}$, the method in [[3](#ref3)] proposed replacing the nuclear norm with the *max norm*:
+
+$$
+\begin{aligned}
+    \|\mathbf{X}\|_{max} &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} (\text{max}_i \|\mathbf{U}_i\|_2) (\text{max}_j \|\mathbf{V}_j\|_2) \\
+    &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} \frac{1}{2} \Big( \text{max}_i \|\mathbf{U}_i\|_2^2 + \text{max}_j \|\mathbf{V}_j\|_2^2 \Big)
+\end{aligned}
+$$
+
+where $\mathbf{U}_i$ and $\mathbf{V}_j$ are the rows of $\mathbf{U}$ and $\mathbf{V}$. The max norm has a geometric interpretation that is similar to Support Vector Machines. For a matrix where only a few of the entries are known and that may be partially corrupted by noise, the max norm matrix factorization can found by solving the following SDP:
+ 
 $$
 \begin{aligned}
     \underset{\mathbf{A}, \mathbf{B}, \mathbf{X}}{\text{minimize}}  \quad & \| P_\Omega(X - Y) \|_F^2 \\
@@ -49,6 +69,8 @@ $$
     & \mathbf{A}_{ii}, \mathbf{B}_{jj} \leq \tau \quad \forall i, j \\
 \end{aligned}
 $$
+
+➡️ **View [Numpy](matrix_completion/numpy/MMMF.py)  implementation**
 
 ## Examples
 
