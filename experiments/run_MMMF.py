@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from matrix_completion.utils.create_low_rank_matrix import create_low_rank_matrix
-from matrix_completion.numpy.MMMF import MMMF
+from matrix_completion.numpy.MMMF import MMMF as npMMMF
+from matrix_completion.pytorch.MMMF import MMMF as tMMMF
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run NNMF matrix completion")
@@ -31,7 +32,14 @@ def main():
 
     ####################################
 
-    mmmf = MMMF(tau=tau, max_iter=args.max_iter)
+    if args.backend == 'numpy':
+
+        mmmf = npMMMF(tau=tau, max_iter=args.max_iter)
+
+    else:
+
+        mmmf = tMMMF(tau=tau, max_iter=args.max_iter)
+        print(mmmf.device)
 
     mmmf.fit(Y, mask)
 
