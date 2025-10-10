@@ -2,40 +2,13 @@ import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matrix_completion.numpy.NNMF import NNMF
+from matrix_completion.utils.create_low_rank_matrix import create_low_rank_matrix
+from matrix_completion.numpy.NNMF import NNMF as npNNMF
+from matrix_completion.pytorch.NNMF import NNMF as tNNMF
 
 # Suppress specific warnings
 np.seterr(divide='ignore', over='ignore', invalid='ignore')
 
-def create_matrix(r, n):
-
-    t = np.linspace(0, 1, n)
-
-    # draw r random frequencies between 1 and 50 Hz
-    f1 = np.random.uniform(1, 10, size=r)  
-    f2 = np.random.uniform(1, 10, size=r)  
-
-    # r random phase offsets between 0 and 2π
-    phi1 = np.random.uniform(0, 2*np.pi, size=10)
-    phi2 = np.random.uniform(0, 2*np.pi, size=10)
-
-    U = np.cos(2 * np.pi * np.outer(t, f1) + phi1)
-    U = np.linalg.qr(U)[0]
-    U = np.nan_to_num(U, nan=1e-8, posinf=1e8, neginf=-1e8)
-    V = np.sin(2 * np.pi * np.outer(t, f2) + phi2)
-    V = np.linalg.qr(V)[0]
-    V = np.nan_to_num(V, nan=1e-8, posinf=1e8, neginf=-1e8)
-
-    s = np.random.uniform(1, 10, size=r)
-    S = np.diag(s)
-
-    Y = U @ S @ V.T
-
-    UV = np.concatenate((U, V), axis=0)
-
-    XX = UV @ S @ UV.T
-
-    return Y, XX, S
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run NNMF matrix completion")
@@ -50,7 +23,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    Y, X, S = create_matrix(args.rank, args.matrix_size[0])
+    Y, X, S = create_low_rank_matrix(args.rank, args.matrix_size[0])
 
     # Select which entries we observe uniformly at random
     mask = np.random.randint(0, 2, (args.matrix_size[0], args.matrix_size[1]))
@@ -63,7 +36,14 @@ def main():
 
     ####################################
 
-    nnmf = NNMF(tau=tau, max_iter=args.max_iter)
+    if args.backend == 'numpy':
+
+        nnmf = npNNMF(tau=tau, max_iter=args.max_iter)
+
+    else:
+
+        nnmf = tNNMF(tau=tau, max_iter=args.max_iter)
+        print(nnmf.device)
 
     nnmf.fit(Y, mask)
 
