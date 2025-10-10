@@ -25,7 +25,7 @@ class NNMF(MatrixCompletion):
 
         self.loss = []
 
-        for k in tqdm(range(1, self.max_iter), desc='Running Nuclear Norm Matrix Completion'):
+        for k in tqdm(range(self.max_iter), desc='Running Nuclear Norm Matrix Completion'):
 
             # Initialize the Frank-Wolfe step size
             g_k = 2 / (2 + k)
@@ -37,7 +37,7 @@ class NNMF(MatrixCompletion):
             G = (F - Y) * mask
 
             # Compute the rank-1 update using the negative gradient
-            x = sparse_power_method(-G, max_iter=2*k)
+            x = sparse_power_method(-G, max_iter=2*(k+1))
 
             # Perform the Frank-Wolfe rank-1 update
             self.X = (1 - g_k) * self.X + g_k * (self.tau * x @ x.T)
