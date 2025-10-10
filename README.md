@@ -34,7 +34,7 @@ $$
 \end{aligned}
 $$
 
-➡️ **View [Numpy](matrix_completion/numpy/NNMF.py)  implementation**
+➡️ **View [Numpy](matrix_completion/numpy/NNMF.py) or [PyTorch](matrix_completion/pytorch/NNMF.py) implementation**
 
 ### Maximum Margin Matrix Factorization
 
@@ -70,7 +70,7 @@ $$
 \end{aligned}
 $$
 
-➡️ **View [Numpy](matrix_completion/numpy/MMMF.py)  implementation**
+➡️ **View [Numpy](matrix_completion/numpy/MMMF.py) or [PyTorch](matrix_completion/pytorch/MMMF.py)  implementation**
 
 ## Examples
 
