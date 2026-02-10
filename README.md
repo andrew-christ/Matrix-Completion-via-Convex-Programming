@@ -57,21 +57,9 @@ $$
 $$
 
 where $\mathbf{U}_i$ and $\mathbf{V}_j$ are the rows of $\mathbf{U}$ and $\mathbf{V}$. The max norm has a geometric interpretation that is similar to Support Vector Machines. For a matrix where only a few of the entries are known and that may be partially corrupted by noise, the max norm matrix factorization can found by solving the following SDP:
- 
-$$
-\begin{aligned}
-    \underset{\mathbf{A}, \mathbf{B}, \mathbf{X}}{\text{minimize}}  \quad & \| P_\Omega(X - Y) \|_F^2 \\
-    \text{subject to} \quad 
-    & \begin{bmatrix}
-    \mathbf{A} & \mathbf{X} \\
-    \mathbf{X}^T & \mathbf{B}
-    \end{bmatrix} \succeq 0 \\
-    & \mathbf{A}_{ii}, \mathbf{B}_{jj} \leq \tau \quad \forall i, j \\
-\end{aligned}
-$$
 
 <p align="center">
-    <img src="images/mmmf-sdp.png" alt="Equation for MMMF SDP" width="200" style="max-width:300px; height:auto; border-radius:4px;"/>
+    <img src="images/mmmf-sdp.png" alt="Equation for MMMF SDP" width="300" style="max-width:300px; height:auto; border-radius:4px;"/>
 </p>
 
 ➡️ **View [Numpy](matrix_completion/numpy/MMMF.py) or [PyTorch](matrix_completion/pytorch/MMMF.py)  implementation**
