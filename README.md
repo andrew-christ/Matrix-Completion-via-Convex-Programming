@@ -70,9 +70,9 @@ $$
 \end{aligned}
 $$
 
-<div style="text-align:center">
+<p align="center">
     <img src="images/mmmf-sdp.png" alt="Equation for MMMF SDP" width="200" style="max-width:300px; height:auto; border-radius:4px;"/>
-</div>
+</p>
 
 ➡️ **View [Numpy](matrix_completion/numpy/MMMF.py) or [PyTorch](matrix_completion/pytorch/MMMF.py)  implementation**
 
