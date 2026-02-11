@@ -49,12 +49,9 @@ $$
 
 where the second equality is due to the AM-GM inequality. Therefore, the nuclear norm constrains all the elements in $\mathbf{U}$ and $\mathbf{V}$ on average to have low $L_2$ norm. Instead of penalizing the average of the rows in $\mathbf{U}$ and $\mathbf{V}$, the method in [[3](#ref3)] proposed replacing the nuclear norm with the *max norm*:
 
-$$
-\begin{aligned}
-    \|\mathbf{X}\|_{max} &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} (\text{max}_i \|\mathbf{U}_i\|_2) (\text{max}_j \|\mathbf{V}_j\|_2) \\
-    &= \min_{\mathbf{X} = \mathbf{U}\mathbf{V}^T} \frac{1}{2} \Big( \text{max}_i \|\mathbf{U}_i\|_2^2 + \text{max}_j \|\mathbf{V}_j\|_2^2 \Big)
-\end{aligned}
-$$
+<p align="center">
+    <img src="images/max-norm.png" alt="Equation for MMMF SDP" width="300" style="max-width:300px; height:auto; border-radius:4px;"/>
+</p>
 
 where $\mathbf{U}_i$ and $\mathbf{V}_j$ are the rows of $\mathbf{U}$ and $\mathbf{V}$. The max norm has a geometric interpretation that is similar to Support Vector Machines. For a matrix where only a few of the entries are known and that may be partially corrupted by noise, the max norm matrix factorization can found by solving the following SDP:
 
